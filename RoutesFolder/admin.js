@@ -1,9 +1,10 @@
 const express = require('express');
-
+const path = require('path');
+const rootdir = require('../util/paths')
 const router = express.Router();
 
 router.get("/add-product", (req, res, next) => {
-    res.send("<form action='/admin/add-product' method='POST'><lable for='title'>Product Title:</lable><input type='text' name='title'/><br><lable for='size'>Product Size:</lable><input type='text' name='size'/><br><button type='submit'>Add Product</button></form>");
+    res.sendFile(path.join(rootdir, "views", "add-product.html"));
 });
 //app.get for get request and app.post for post request
 router.post('/add-product', (req, res, next) => {
@@ -11,5 +12,10 @@ router.post('/add-product', (req, res, next) => {
     console.log(req.body.size);
     res.redirect('/shop/');
 });
-
+router.get("/contact-us", (req, res, next) => {
+    res.sendFile(path.join(rootdir, "views", "contact-us.html"));
+});
+router.post("/contact-us", (req, res, next) => {
+    res.redirect('/shop/success');
+});
 module.exports = router;
